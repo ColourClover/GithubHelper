@@ -8,10 +8,20 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import com.gengqiquan.githubhelper.base.DaggerActivity
+import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import kotlinx.android.synthetic.main.content_main.*
+import retrofit2.Retrofit
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : DaggerActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun inject() {
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +39,16 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        val p = HashMap<String, String>()
+        p.put("q", "gengqiquan/tangram")
+        p.put("sort", "stars")
+        p.put("order", "desc")
+        retrofit.create(GithubService::class.java).searchRepositories(p)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    text.text = it
+                }) { it.printStackTrace() }
     }
 
     override fun onBackPressed() {
