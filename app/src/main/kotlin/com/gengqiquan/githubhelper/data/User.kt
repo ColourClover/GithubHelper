@@ -19,7 +19,7 @@ data class User(
         val followingUrl: String? = null,
 
         @field:SerializedName("bio")
-        val bio: Any? = null,
+        val bio: String? = null,
 
         @field:SerializedName("created_at")
         val createdAt: String? = null,
@@ -100,7 +100,7 @@ data class User(
         val followers: Int? = null,
 
         @field:SerializedName("avatar_url")
-        val avatarUrl: String? = null,
+        val avatarUrl: String,
 
         @field:SerializedName("events_url")
         val eventsUrl: String? = null,
