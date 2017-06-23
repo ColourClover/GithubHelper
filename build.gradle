@@ -15,6 +15,7 @@ buildscript {
         kotlin_version = '1.1.2-5'
         anko_version = '0.10.0'
         databinding_version = '2.4.0-alpha7'
+        fastjsonVersion = '1.2.33'
     }
     repositories {
         maven { url 'https://raw.github.com/Raizlabs/maven-releases/master/releases' }

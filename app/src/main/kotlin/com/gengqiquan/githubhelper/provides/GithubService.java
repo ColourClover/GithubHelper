@@ -1,5 +1,7 @@
 package com.gengqiquan.githubhelper.provides;
 
+import com.gengqiquan.githubhelper.data.User;
+
 import java.util.Map;
 
 import retrofit2.http.Field;
@@ -23,7 +25,9 @@ public interface GithubService {
     @POST("login/oauth/access_token")
     Observable<String> accessToken(@Field("client_id") String client_id, @Field("client_secret") String client_secret, @Field("code") String code);
 
-    //scope
-    @GET("login/oauth/authorize?client_id={client_id}&state={state}&redirect_uri={redirect_uri}")
-    Observable<String> authorize(@Path("client_id") String client_id, @Path("state") String state, @Path("redirect_uri") String redirect_uri);
+    @GET("login/oauth/authorize")
+    Observable<String> authorize(@Query("client_id") String client_id, @Query("state") String state, @Query("redirect_uri") String redirect_uri);
+
+    @GET("user")
+    Observable<User> user(@Query("access_token") String access_token);
 }

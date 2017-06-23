@@ -114,9 +114,13 @@ dependencies {
     kapt "com.alibaba:arouter-compiler:${aRouterCompilerVersion}"
     implementation 'com.gengqiquan.login-util:app:1.0.1'
 
+
     implementation "com.google.dagger:dagger:${dagger2Version}"
     kapt "com.google.dagger:dagger-compiler:${dagger2Version}"
     //stream
+    implementation "com.alibaba:fastjson:${fastjsonVersion}"
+    implementation 'com.google.code.gson:gson:2.8.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.gengqiquan:httputil:1.0.3'
     implementation 'com.trello:rxlifecycle:1.0'
     implementation 'com.trello:rxlifecycle-components:1.0'
@@ -127,4 +131,5 @@ dependencies {
 
     implementation 'com.android.support:support-v4:25.3.1'
     implementation 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'javax.annotation:javax.annotation-api:1.2'
 }

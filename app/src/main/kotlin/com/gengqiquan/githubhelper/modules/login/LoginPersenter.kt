@@ -4,8 +4,6 @@ import android.content.Context
 import com.gengqiquan.githubhelper.AppComponent
 import com.gengqiquan.githubhelper.base.ActivityModule
 import com.gengqiquan.githubhelper.base.ActivityScope
-import com.gengqiquan.githubhelper.base.AppModule
-import com.gengqiquan.githubhelper.base.AppScope
 import com.gengqiquan.githubhelper.expansions.applySchedulersAndLife
 import com.gengqiquan.githubhelper.provides.APIs
 import com.gengqiquan.githubhelper.provides.GithubService
@@ -13,8 +11,6 @@ import dagger.Component
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import javax.inject.Inject
-import javax.inject.Named
 
 /**
  * Created by gengqiquan on 2017/6/23.
@@ -32,10 +28,10 @@ class LoginPersenter {
     }
 
     fun login(email: String, password: String) {
-        githubService!!.authorize(APIs.CLIENT_ID, email, APIs.REDIRECT_URI)
+        githubService.user(APIs.TEST_TOKEN)
                 .applySchedulersAndLife(mView)
                 .subscribe({
-                    mView.toast(it)
+                    mView.toast(it.login!!)
                 }) { e -> e.printStackTrace() }
     }
 

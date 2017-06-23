@@ -3,18 +3,18 @@ package com.gengqiquan.githubhelper
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.gengqiquan.githubhelper.base.MVPActivity
+import com.gengqiquan.githubhelper.expansions.applySchedulers
+import com.gengqiquan.githubhelper.provides.APIs
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.activity_main.*
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 
 class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListener {
+
     override fun initViews(savedInstanceState: Bundle?) {
         mTitleBar.setTitle("GithubHelper")
         mTitleBar.setLeftIcon(R.drawable.ic_menu_white_24dp)
@@ -30,18 +30,14 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
         p.put("q", "gengqiquan/tangram")
         p.put("sort", "stars")
         p.put("order", "desc")
-     //   showLoading()
-//        retrofit.create(GithubService::
-//        class.java).searchRepositories(p)
-////                .delay(10, TimeUnit.SECONDS)
-//                .subscribeOn(Schedulers.newThread())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//                        {
-//                            hideLoading()
-//                            text.text = it
-//                        })
-//                { it.printStackTrace() }
+        //   showLoading()
+        retrofit.create(GithubService::class.java).user(APIs.TEST_TOKEN)
+                .applySchedulers()
+                .subscribe({
+                    text.text = it.toString()
+                    toast(it.login!!)
+                }) { e -> e.printStackTrace() }
+
     }
 
     override fun initData() {
@@ -50,7 +46,7 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
     override fun getLayoutID(): Int = R.layout.activity_main
 
     override fun inject() {
-     //   DaggerAppComponent.builder().appModule()
+
     }
 
 

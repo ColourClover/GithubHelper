@@ -15,6 +15,7 @@ import es.dmoral.toasty.Toasty
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
 
@@ -33,6 +34,7 @@ class App : Application() {
         val retrofit = Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(APIs.GITHUB_DOMAIN + "/")
                 .client(okHttpClient).build()
         component = DaggerAppComponent.builder().appModule(AppModule(this, okHttpClient, retrofit)).build()
