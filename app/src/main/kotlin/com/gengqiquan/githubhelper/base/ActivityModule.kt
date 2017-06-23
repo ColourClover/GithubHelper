@@ -5,19 +5,16 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module @ActivityScope
 class ActivityModule {
-    private val activity: Activity
-    internal var mBaseView: IBaseView
+    @ActivityScope  private val activity: Activity
+    @ActivityScope   var mBaseView: IBaseView
+    @ActivityScope  var mContext: Context
 
     constructor(activity: Activity) {
         this.activity = activity
         this.mBaseView = activity as IBaseView
-    }
-
-    constructor(activity: Activity, iBaseView: IBaseView) {
-        this.activity = activity
-        this.mBaseView = iBaseView
+        this.mContext = activity as Context
     }
 
     @ActivityScope
@@ -29,7 +26,7 @@ class ActivityModule {
     @ActivityScope
     @Provides
     internal fun provideContext(): Context {
-        return this.activity
+        return this.activity as Context
     }
 
     @ActivityScope

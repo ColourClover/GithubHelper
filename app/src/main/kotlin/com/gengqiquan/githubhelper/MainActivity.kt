@@ -30,18 +30,18 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
         p.put("q", "gengqiquan/tangram")
         p.put("sort", "stars")
         p.put("order", "desc")
-        showLoading()
-        retrofit.create(GithubService::
-        class.java).searchRepositories(p)
-//                .delay(10, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        {
-                            hideLoading()
-                            text.text = it
-                        })
-                { it.printStackTrace() }
+     //   showLoading()
+//        retrofit.create(GithubService::
+//        class.java).searchRepositories(p)
+////                .delay(10, TimeUnit.SECONDS)
+//                .subscribeOn(Schedulers.newThread())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//                        {
+//                            hideLoading()
+//                            text.text = it
+//                        })
+//                { it.printStackTrace() }
     }
 
     override fun initData() {
@@ -50,6 +50,7 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
     override fun getLayoutID(): Int = R.layout.activity_main
 
     override fun inject() {
+     //   DaggerAppComponent.builder().appModule()
     }
 
 
