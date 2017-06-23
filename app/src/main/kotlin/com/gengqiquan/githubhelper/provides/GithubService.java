@@ -1,7 +1,9 @@
 package com.gengqiquan.githubhelper.provides;
 
+import com.gengqiquan.githubhelper.data.Repositorie;
 import com.gengqiquan.githubhelper.data.User;
 
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.http.Field;
@@ -11,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import retrofit2.http.Url;
 import rx.Observable;
 
 /**
@@ -30,4 +33,7 @@ public interface GithubService {
 
     @GET("user")
     Observable<User> user(@Query("access_token") String access_token);
+
+    @GET()
+    Observable<List<Repositorie>> getUserRepositories(@Url String url);
 }

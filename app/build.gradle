@@ -107,6 +107,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     implementation 'com.github.ybq:Android-SpinKit:1.1.0'
     implementation 'com.github.GrenderG:Toasty:1.2.5'
+    implementation 'com.gengqiquan:refreshlayout:1.1.0'
     // kapt "com.android.databinding:compiler:$databinding_version"
     //  implementation "org.jetbrains.anko:anko:$anko_version"
     //AOP

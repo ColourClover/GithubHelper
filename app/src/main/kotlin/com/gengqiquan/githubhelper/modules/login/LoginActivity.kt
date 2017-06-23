@@ -93,7 +93,7 @@ class LoginActivity : MVPActivity(), LoaderCallbacks<Cursor>, ILoginView {
         var focusView: View? = null
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
+        if (!TextUtils.isEmpty(passwordStr) && !persenter.isPasswordValid(passwordStr)) {
             password.error = getString(R.string.error_invalid_password)
             focusView = password
             cancel = true
@@ -104,7 +104,7 @@ class LoginActivity : MVPActivity(), LoaderCallbacks<Cursor>, ILoginView {
             email.error = getString(R.string.error_field_required)
             focusView = email
             cancel = true
-        } else if (!isEmailValid(emailStr)) {
+        } else if (!persenter.isEmailValid(emailStr)) {
             email.error = getString(R.string.error_invalid_email)
             focusView = email
             cancel = true
@@ -122,13 +122,6 @@ class LoginActivity : MVPActivity(), LoaderCallbacks<Cursor>, ILoginView {
         }
     }
 
-    private fun isEmailValid(email: String): Boolean {
-        return email.isEmail()
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        return password.isNumber() || password.isLetter()
-    }
 
     /**
      * Shows the progress UI and hides the login form.

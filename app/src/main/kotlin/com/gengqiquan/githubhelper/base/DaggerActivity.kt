@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 abstract class DaggerActivity : BaseActivity() {
 
-    @Inject lateinit var retrofit: Retrofit // TODO: 2017/6/23 for test ，UT don't allow touch net 
+    @Inject lateinit var retrofit: Retrofit // TODO: 2017/6/23 for test ，UT don't allow touch net
 
     override fun onCreate(savedInstanceState: Bundle?) {
         App.component.inject(this)

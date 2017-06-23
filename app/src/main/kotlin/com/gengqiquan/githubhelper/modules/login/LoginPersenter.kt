@@ -5,6 +5,9 @@ import com.gengqiquan.githubhelper.AppComponent
 import com.gengqiquan.githubhelper.base.ActivityModule
 import com.gengqiquan.githubhelper.base.ActivityScope
 import com.gengqiquan.githubhelper.expansions.applySchedulersAndLife
+import com.gengqiquan.githubhelper.expansions.isEmail
+import com.gengqiquan.githubhelper.expansions.isLetter
+import com.gengqiquan.githubhelper.expansions.isNumber
 import com.gengqiquan.githubhelper.provides.APIs
 import com.gengqiquan.githubhelper.provides.GithubService
 import dagger.Component
@@ -35,6 +38,13 @@ class LoginPersenter {
                 }) { e -> e.printStackTrace() }
     }
 
+     fun isEmailValid(email: String): Boolean {
+        return email.isEmail()
+    }
+
+     fun isPasswordValid(password: String): Boolean {
+        return password.isNumber() || password.isLetter()
+    }
 
     @Module
     internal open class LoginPersenterModule {
