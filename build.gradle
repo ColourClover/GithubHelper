@@ -1,15 +1,20 @@
+import com.sun.xml.internal.ws.api.databinding.Databinding
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
     ext {
         butterKnifeVersion = '8.5.1'
         dagger2Version = '2.6'
+        aRouterCompilerVersion = '1.1.2.1'
+        aRouterVersion = '1.2.1.1'
         supportVersion = "25.3.1"
         retrofit = '2.3.0'
         junitVersion = '4.12'
-
         espresseVersion = '2.2.2'
         kotlin_version = '1.1.2-5'
+        anko_version = '0.10.0'
+        databinding_version = '2.4.0-alpha7'
     }
     repositories {
         maven { url 'https://raw.github.com/Raizlabs/maven-releases/master/releases' }
@@ -20,7 +25,8 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0-alpha4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath "org.jetbrains.kotlin:kotlin-android-extensions:$kotlin_version"
+        classpath 'com.android.databinding:dataBinder:1.0-rc0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -31,6 +37,11 @@ allprojects {
 //        maven { url 'https://maven.google.com' }
         jcenter()
         mavenCentral()
+    }
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
+        options.compilerArgs << "-Xbootclasspath/a:" + System.properties.get("java.home") + "/lib/rt.jar"
     }
 }
 

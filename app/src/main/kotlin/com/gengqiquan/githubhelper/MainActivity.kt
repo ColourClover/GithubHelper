@@ -1,55 +1,57 @@
 package com.gengqiquan.githubhelper
 
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
-import com.gengqiquan.githubhelper.base.DaggerActivity
+import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
+import com.gengqiquan.githubhelper.base.MVPActivity
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.content_main.*
-import retrofit2.Retrofit
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import javax.inject.Inject
 
-class MainActivity : DaggerActivity(), NavigationView.OnNavigationItemSelectedListener {
-    override fun inject() {
-    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
-        val toggle = ActionBarDrawerToggle(
-                this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawer_layout.addDrawerListener(toggle)
-        toggle.syncState()
-
+class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListener {
+    override fun initViews(savedInstanceState: Bundle?) {
+        mTitleBar.setTitle("GithubHelper")
+        mTitleBar.setLeftIcon(R.drawable.ic_menu_white_24dp)
+        mTitleBar.setLeftClickListener(View.OnClickListener {
+            if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
+                drawer_layout.closeDrawer(GravityCompat.START)
+            } else {
+                drawer_layout.openDrawer(GravityCompat.START)
+            }
+        })
         nav_view.setNavigationItemSelectedListener(this)
         val p = HashMap<String, String>()
         p.put("q", "gengqiquan/tangram")
         p.put("sort", "stars")
         p.put("order", "desc")
-        retrofit.create(GithubService::class.java).searchRepositories(p)
+        showLoading()
+        retrofit.create(GithubService::
+        class.java).searchRepositories(p)
+//                .delay(10, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    text.text = it
-                }) { it.printStackTrace() }
+                .subscribe(
+                        {
+                            hideLoading()
+                            text.text = it
+                        })
+                { it.printStackTrace() }
     }
+
+    override fun initData() {
+    }
+
+    override fun getLayoutID(): Int = R.layout.activity_main
+
+    override fun inject() {
+    }
+
 
     override fun onBackPressed() {
         if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
@@ -59,45 +61,11 @@ class MainActivity : DaggerActivity(), NavigationView.OnNavigationItemSelectedLi
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        when (item.itemId) {
-            R.id.action_settings -> return true
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         // Handle navigation view item clicks here.
-        when (item.itemId) {
-            R.id.nav_camera -> {
-                // Handle the camera action
-            }
-            R.id.nav_gallery -> {
-
-            }
-            R.id.nav_slideshow -> {
-
-            }
-            R.id.nav_manage -> {
-
-            }
-            R.id.nav_share -> {
-
-            }
-            R.id.nav_send -> {
-
-            }
-        }
-
+        ARouter.getInstance().build("/tab/" + item.title.toString())
+                .navigation()
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
     }

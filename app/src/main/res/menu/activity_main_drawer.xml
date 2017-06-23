@@ -5,33 +5,76 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/profile"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:title="Prodile" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/notification"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:title="Notification" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/news"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:title="News" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/issues"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Issues" />
     </group>
-
-    <item android:title="Communicate">
+    <item android:title="Repositories">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/owned"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Owned" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/starred"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:title="Starred" />
+            <item
+                android:id="@+id/tremding"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Trending" />
+            <item
+                android:id="@+id/explore"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Explore" />
+        </menu>
+    </item>
+    <item android:title="Gists">
+        <menu>
+            <item
+                android:id="@+id/my_gists"
+                android:icon="@drawable/ic_menu_share"
+                android:title="My Gists" />
+            <item
+                android:id="@+id/gists_starred"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Starred" />
+            <item
+                android:id="@+id/gists_public"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Public" />
+        </menu>
+    </item>
+    <item android:title="Preferences">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Settings" />
+            <item
+                android:id="@+id/upgrades"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Upgrades" />
+            <item
+                android:id="@+id/feedback_support"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Feedback &amp; Support" />
+            <item
+                android:id="@+id/accounts"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Accounts" />
         </menu>
     </item>
 
