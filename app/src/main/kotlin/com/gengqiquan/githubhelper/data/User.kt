@@ -1,5 +1,7 @@
 package com.gengqiquan.githubhelper.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
 
@@ -10,7 +12,7 @@ data class User(
         val gistsUrl: String? = null,
 
         @field:SerializedName("repos_url")
-        val reposUrl: String? = null,
+        val reposUrl: String,
 
         @field:SerializedName("two_factor_authentication")
         val twoFactorAuthentication: Boolean? = null,
@@ -54,8 +56,8 @@ data class User(
         @field:SerializedName("collaborators")
         val collaborators: Int? = null,
 
-        @field:SerializedName("company")
-        val company: Any? = null,
+        @field:SerializedName("compString")
+        val compString: String? = null,
 
         @field:SerializedName("owned_private_repos")
         val ownedPrivateRepos: Int? = null,
@@ -73,13 +75,13 @@ data class User(
         val plan: Plan? = null,
 
         @field:SerializedName("email")
-        val email: Any? = null,
+        val email: String? = null,
 
         @field:SerializedName("organizations_url")
         val organizationsUrl: String? = null,
 
         @field:SerializedName("hireable")
-        val hireable: Any? = null,
+        val hireable: String? = null,
 
         @field:SerializedName("starred_url")
         val starredUrl: String? = null,
@@ -112,8 +114,97 @@ data class User(
         val following: Int? = null,
 
         @field:SerializedName("name")
-        val name: String? = null,
+        val name: String,
 
         @field:SerializedName("location")
-        val location: Any? = null
-)
+        val location: String? = null
+) : Parcelable {
+        companion object {
+                @JvmField val CREATOR: Parcelable.Creator<User> = object : Parcelable.Creator<User> {
+                        override fun createFromParcel(source: Parcel): User = User(source)
+                        override fun newArray(size: Int): Array<User?> = arrayOfNulls(size)
+                }
+        }
+
+        constructor(source: Parcel) : this(
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readParcelable<Plan>(Plan::class.java.classLoader),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) {
+                dest.writeString(gistsUrl)
+                dest.writeString(reposUrl)
+                dest.writeValue(twoFactorAuthentication)
+                dest.writeString(followingUrl)
+                dest.writeString(bio)
+                dest.writeString(createdAt)
+                dest.writeString(login)
+                dest.writeString(type)
+                dest.writeString(blog)
+                dest.writeValue(privateGists)
+                dest.writeValue(totalPrivateRepos)
+                dest.writeString(subscriptionsUrl)
+                dest.writeString(updatedAt)
+                dest.writeValue(siteAdmin)
+                dest.writeValue(diskUsage)
+                dest.writeValue(collaborators)
+                dest.writeString(compString)
+                dest.writeValue(ownedPrivateRepos)
+                dest.writeValue(id)
+                dest.writeValue(publicRepos)
+                dest.writeString(gravatarId)
+                dest.writeParcelable(plan, 0)
+                dest.writeString(email)
+                dest.writeString(organizationsUrl)
+                dest.writeString(hireable)
+                dest.writeString(starredUrl)
+                dest.writeString(followersUrl)
+                dest.writeValue(publicGists)
+                dest.writeString(url)
+                dest.writeString(receivedEventsUrl)
+                dest.writeValue(followers)
+                dest.writeString(avatarUrl)
+                dest.writeString(eventsUrl)
+                dest.writeString(htmlUrl)
+                dest.writeValue(following)
+                dest.writeString(name)
+                dest.writeString(location)
+        }
+}

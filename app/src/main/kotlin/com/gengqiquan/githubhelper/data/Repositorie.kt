@@ -1,5 +1,7 @@
 package com.gengqiquan.githubhelper.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
 
@@ -178,7 +180,7 @@ data class Repositorie(
         val contentsUrl: String? = null,
 
         @field:SerializedName("mirror_url")
-        val mirrorUrl: Any? = null,
+        val mirrorUrl: String? = null,
 
         @field:SerializedName("milestones_url")
         val milestonesUrl: String? = null,
@@ -208,8 +210,161 @@ data class Repositorie(
         val watchersCount: Int? = null,
 
         @field:SerializedName("homepage")
-        val homepage: Any? = null,
+        val homepage: String? = null,
 
         @field:SerializedName("forks_count")
         val forksCount: Int
-)
+) : Parcelable {
+        companion object {
+                @JvmField val CREATOR: Parcelable.Creator<Repositorie> = object : Parcelable.Creator<Repositorie> {
+                        override fun createFromParcel(source: Parcel): Repositorie = Repositorie(source)
+                        override fun newArray(size: Int): Array<Repositorie?> = arrayOfNulls(size)
+                }
+        }
+
+        constructor(source: Parcel) : this(
+        source.readInt(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readParcelable<Owner>(Owner::class.java.classLoader),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Boolean::class.java.classLoader) as Boolean?,
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readString(),
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readValue(Int::class.java.classLoader) as Int?,
+        source.readString(),
+        source.readInt()
+        )
+
+        override fun describeContents() = 0
+
+        override fun writeToParcel(dest: Parcel, flags: Int) {
+                dest.writeInt(stargazersCount)
+                dest.writeString(pushedAt)
+                dest.writeString(subscriptionUrl)
+                dest.writeString(language)
+                dest.writeString(branchesUrl)
+                dest.writeString(issueCommentUrl)
+                dest.writeString(labelsUrl)
+                dest.writeString(subscribersUrl)
+                dest.writeString(releasesUrl)
+                dest.writeString(svnUrl)
+                dest.writeValue(id)
+                dest.writeValue(forks)
+                dest.writeString(archiveUrl)
+                dest.writeString(gitRefsUrl)
+                dest.writeString(forksUrl)
+                dest.writeString(statusesUrl)
+                dest.writeString(sshUrl)
+                dest.writeString(fullName)
+                dest.writeValue(size)
+                dest.writeString(languagesUrl)
+                dest.writeString(htmlUrl)
+                dest.writeString(collaboratorsUrl)
+                dest.writeString(cloneUrl)
+                dest.writeString(name)
+                dest.writeString(pullsUrl)
+                dest.writeString(defaultBranch)
+                dest.writeString(hooksUrl)
+                dest.writeString(treesUrl)
+                dest.writeString(tagsUrl)
+                dest.writeValue(jsonMemberPrivate)
+                dest.writeString(contributorsUrl)
+                dest.writeValue(hasDownloads)
+                dest.writeString(notificationsUrl)
+                dest.writeValue(openIssuesCount)
+                dest.writeString(description)
+                dest.writeString(createdAt)
+                dest.writeValue(watchers)
+                dest.writeString(keysUrl)
+                dest.writeString(deploymentsUrl)
+                dest.writeValue(hasProjects)
+                dest.writeValue(hasWiki)
+                dest.writeString(updatedAt)
+                dest.writeString(commentsUrl)
+                dest.writeString(stargazersUrl)
+                dest.writeString(gitUrl)
+                dest.writeValue(hasPages)
+                dest.writeParcelable(owner, 0)
+                dest.writeString(commitsUrl)
+                dest.writeString(compareUrl)
+                dest.writeString(gitCommitsUrl)
+                dest.writeString(blobsUrl)
+                dest.writeString(gitTagsUrl)
+                dest.writeString(mergesUrl)
+                dest.writeString(downloadsUrl)
+                dest.writeValue(hasIssues)
+                dest.writeString(url)
+                dest.writeString(contentsUrl)
+                dest.writeString(mirrorUrl)
+                dest.writeString(milestonesUrl)
+                dest.writeString(teamsUrl)
+                dest.writeValue(fork)
+                dest.writeString(issuesUrl)
+                dest.writeString(eventsUrl)
+                dest.writeString(issueEventsUrl)
+                dest.writeString(assigneesUrl)
+                dest.writeValue(openIssues)
+                dest.writeValue(watchersCount)
+                dest.writeString(homepage)
+                dest.writeInt(forksCount)
+        }
+}

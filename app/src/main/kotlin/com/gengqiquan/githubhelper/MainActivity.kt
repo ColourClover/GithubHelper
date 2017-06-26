@@ -7,17 +7,15 @@ import android.view.MenuItem
 import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.che300.kotlin.extand.load
-import com.gengqiquan.adapter.adapter.RBAdapter
-import com.gengqiquan.adapter.interfaces.Holder
 import com.gengqiquan.githubhelper.base.MVPActivity
-import com.gengqiquan.githubhelper.data.Repositorie
 import com.gengqiquan.githubhelper.expansions.applySchedulers
+import com.gengqiquan.githubhelper.modules.reposistories.UserRepositoriesActivity
 import com.gengqiquan.githubhelper.provides.APIs
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
-import org.jetbrains.anko.dip
-import org.jetbrains.anko.listView
+import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -40,47 +38,16 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
         //   showLoading()
         retrofit.create(GithubService::class.java).user(APIs.TEST_TOKEN)
                 .applySchedulers()
-                .subscribe({
-                    user_photo.load(it.avatarUrl)
-                    user_name.text = it.name
-                    user_desc.text = it.bio
-                    toast("hello " + it.login!!)
+                .subscribe({ user ->
+                    user_photo.load(user.avatarUrl)
+                    user_name.text = user.name
+                    user_desc.text = user.bio
+                    user_photo.onClick { startActivity<UserRepositoriesActivity>("userName" to user.name, "reposUrl" to user.reposUrl) }
+                    toast("hello " + user.login!!)
                 }) { e -> e.printStackTrace() }
-        refresh.adapter(RBAdapter<Repositorie>(mContext)
-                .bindViewData(this::bindViewAndData)
-                .layout(R.layout.item_user_repositorie_list))
-                .loadMore { load(false) }
-                .refresh { load(true) }
-                .doRefresh()
 
     }
 
-    fun bindViewAndData(holder: Holder, item: Repositorie) {
-        holder.setText(R.id.name, item.name)
-        holder.setText(R.id.desc, item.description)
-        holder.setText(R.id.language, item.language)
-        if (item.stargazersCount > 0) {
-            holder.getView<View>(R.id.star).visibility = View.VISIBLE
-        } else {
-            holder.getView<View>(R.id.star).visibility = View.GONE
-        }
-        if (item.forksCount > 0) {
-            holder.getView<View>(R.id.fork).visibility = View.VISIBLE
-        } else {
-            holder.getView<View>(R.id.fork).visibility = View.GONE
-        }
-        holder.setText(R.id.star, item.stargazersCount.toString())
-        holder.setText(R.id.fork, item.forksCount.toString())
-    }
-
-    fun load(boolean: Boolean) {
-        retrofit.create(GithubService::class.java).getUserRepositories("users/gengqiquan/repos")
-                .applySchedulers()
-                .subscribe({
-                    refresh.refreshComplete(it)
-
-                }) { e -> e.printStackTrace() }
-    }
 
     override fun initData() {
     }

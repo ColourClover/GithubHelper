@@ -3,13 +3,13 @@ package com.gengqiquan.githubhelper.base
 import android.os.Bundle
 import android.support.annotation.CallSuper
 import android.support.annotation.CheckResult
-import com.trello.rxlifecycle.LifecycleProvider
-import com.trello.rxlifecycle.LifecycleTransformer
-import com.trello.rxlifecycle.RxLifecycle
-import com.trello.rxlifecycle.android.ActivityEvent
-import com.trello.rxlifecycle.android.RxLifecycleAndroid
-import rx.Observable
-import rx.subjects.BehaviorSubject
+import com.trello.rxlifecycle2.LifecycleProvider
+import com.trello.rxlifecycle2.LifecycleTransformer
+import com.trello.rxlifecycle2.RxLifecycle
+import com.trello.rxlifecycle2.android.ActivityEvent
+import com.trello.rxlifecycle2.android.RxLifecycleAndroid
+import io.reactivex.Observable
+import io.reactivex.subjects.BehaviorSubject
 
 
 /**
@@ -22,7 +22,7 @@ abstract class RxBaseActivity : DaggerActivity(), LifecycleProvider<ActivityEven
 
     @CheckResult
     override fun lifecycle(): Observable<ActivityEvent> {
-        return lifecycleSubject.asObservable()
+        return lifecycleSubject.hide()
     }
 
     @CheckResult

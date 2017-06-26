@@ -1,5 +1,7 @@
 package com.gengqiquan.githubhelper.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import javax.annotation.Generated
 import com.google.gson.annotations.SerializedName
 
@@ -56,4 +58,53 @@ data class Owner(
 
 	@field:SerializedName("organizations_url")
 	val organizationsUrl: String? = null
-)
+) : Parcelable {
+	companion object {
+		@JvmField val CREATOR: Parcelable.Creator<Owner> = object : Parcelable.Creator<Owner> {
+			override fun createFromParcel(source: Parcel): Owner = Owner(source)
+			override fun newArray(size: Int): Array<Owner?> = arrayOfNulls(size)
+		}
+	}
+
+	constructor(source: Parcel) : this(
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readString(),
+	source.readValue(Boolean::class.java.classLoader) as Boolean?,
+	source.readValue(Int::class.java.classLoader) as Int?,
+	source.readString(),
+	source.readString()
+	)
+
+	override fun describeContents() = 0
+
+	override fun writeToParcel(dest: Parcel, flags: Int) {
+		dest.writeString(gistsUrl)
+		dest.writeString(reposUrl)
+		dest.writeString(followingUrl)
+		dest.writeString(starredUrl)
+		dest.writeString(login)
+		dest.writeString(followersUrl)
+		dest.writeString(type)
+		dest.writeString(url)
+		dest.writeString(subscriptionsUrl)
+		dest.writeString(receivedEventsUrl)
+		dest.writeString(avatarUrl)
+		dest.writeString(eventsUrl)
+		dest.writeString(htmlUrl)
+		dest.writeValue(siteAdmin)
+		dest.writeValue(id)
+		dest.writeString(gravatarId)
+		dest.writeString(organizationsUrl)
+	}
+}

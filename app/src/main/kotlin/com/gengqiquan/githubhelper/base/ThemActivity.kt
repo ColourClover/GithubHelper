@@ -46,7 +46,7 @@ abstract class ThemActivity : AppCompatActivity() {
 
     // 请求失败布局
     var mBadNet: View? = null
-
+    abstract fun getLayoutID(): Int
     /*
     *绑定控件，设置监听事件
     *@author Administrator
@@ -181,7 +181,7 @@ abstract class ThemActivity : AppCompatActivity() {
 //        return button
     // }
 
-    abstract fun getLayoutID(): Int
+
 
     override fun onDestroy() {
         if (mLoadView.isShowing)    //防止耗时操作后关闭加载框时界面已经被销毁

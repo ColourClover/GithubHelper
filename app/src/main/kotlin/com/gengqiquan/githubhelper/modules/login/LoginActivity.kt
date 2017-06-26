@@ -2,14 +2,11 @@ package com.gengqiquan.githubhelper.modules.login
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import android.annotation.TargetApi
 import android.app.LoaderManager.LoaderCallbacks
 import android.content.CursorLoader
 import android.content.Loader
 import android.database.Cursor
 import android.net.Uri
-import android.os.AsyncTask
-import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.text.TextUtils
@@ -22,12 +19,8 @@ import com.gengqiquan.githubhelper.App
 import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.base.ActivityScope
 import com.gengqiquan.githubhelper.base.MVPActivity
-import com.gengqiquan.githubhelper.expansions.isEmail
-import com.gengqiquan.githubhelper.expansions.isLetter
-import com.gengqiquan.githubhelper.expansions.isNumber
 import kotlinx.android.synthetic.main.activity_login.*
-
-import java.util.ArrayList
+import java.util.*
 import javax.inject.Inject
 
 /**

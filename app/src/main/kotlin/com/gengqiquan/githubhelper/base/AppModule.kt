@@ -2,15 +2,10 @@ package com.gengqiquan.githubhelper.base
 
 import android.content.Context
 import com.gengqiquan.githubhelper.App
-import com.gengqiquan.githubhelper.provides.APIs
-import com.gengqiquan.githubhelper.provides.GithubService
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
-import retrofit2.converter.scalars.ScalarsConverterFactory
-import javax.inject.Named
 import javax.inject.Singleton
 
 /**

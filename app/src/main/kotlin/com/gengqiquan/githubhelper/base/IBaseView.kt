@@ -2,8 +2,7 @@ package com.gengqiquan.githubhelper.base
 
 
 import android.support.annotation.UiThread
-
-import com.trello.rxlifecycle.LifecycleTransformer
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * 基础 BaseView 接口

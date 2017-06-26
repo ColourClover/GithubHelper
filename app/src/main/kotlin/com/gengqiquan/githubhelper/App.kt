@@ -5,7 +5,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.gengqiquan.githubhelper.base.AppModule
 import com.gengqiquan.githubhelper.modules.login.LoginActivity
 import com.gengqiquan.githubhelper.provides.APIs
-import com.gengqiquan.githubhelper.provides.GithubService
 import com.gengqiquan.githubhelper.utils.LoginUtil
 import com.sunshine.retrofit.HttpUtil
 import com.sunshine.retrofit.cacahe.CacheProvide
@@ -14,7 +13,7 @@ import com.sunshine.retrofit.interceptor.HttpLoggingInterceptor
 import es.dmoral.toasty.Toasty
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.util.concurrent.TimeUnit
@@ -32,7 +31,7 @@ class App : Application() {
         super.onCreate()
         val okHttpClient = getOkHttpClient()
         val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(APIs.GITHUB_DOMAIN + "/")
