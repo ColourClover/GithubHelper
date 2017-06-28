@@ -5,20 +5,24 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.view.MenuItem
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
+import bindView
 import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.base.BaseFragment
 import com.gengqiquan.githubhelper.provides.FragmentFactory
 import com.gengqiquan.githubhelper.base.MVPActivity
 import com.gengqiquan.githubhelper.expansions.*
+import com.gengqiquan.githubhelper.modules.user.UserInfoActivity
 import io.reactivex.rxkotlin.toObservable
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
+import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk25.coroutines.onClick
+import org.jetbrains.anko.startActivity
 
 
 class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-
     override fun initViews(savedInstanceState: Bundle?) {
         setTitle("GithubHelper")
         mTitleBar.setLeftIcon(R.drawable.ic_menu_white_24dp)
@@ -29,18 +33,13 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
                 drawer_layout.openDrawer(GravityCompat.START)
             }
         })
-        nav_view.setNavigationItemSelectedListener(this)
-        listOf("").toObservable()
-                .applySchedulers()// FIXME: 2017/6/27 抽风，不这样include的控件就找不到，目测是Kotlin的bug
-                .subscribe({
-                    user_photo.load(user.avatarUrl)
-                    user_name.text = user.name
-                    user_desc.text = user.bio
-                    user_photo.onClick { changeFragment("Repositories", "userID" to user.login) }
-                }) { e ->
-                    e.printStackTrace()
 
-                }
+        nav_view.setNavigationItemSelectedListener(this)
+        val header = nav_view.getHeaderView(0)
+        header.find<ImageView>(R.id.user_photo).load(user.avatarUrl)
+        header.find<TextView>(R.id.user_name).text = user.name
+        header.find<TextView>(R.id.user_desc).text = user.bio
+        header.find<ImageView>(R.id.user_photo).onClick { startActivity<UserInfoActivity>("user" to user) }
         toast("hello " + user.login!!)
         changeFragment("Events", "userID" to user.login)
     }
