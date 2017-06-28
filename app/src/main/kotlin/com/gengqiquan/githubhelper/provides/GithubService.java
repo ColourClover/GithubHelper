@@ -1,5 +1,6 @@
 package com.gengqiquan.githubhelper.provides;
 
+import com.gengqiquan.githubhelper.data.Event;
 import com.gengqiquan.githubhelper.data.Repositorie;
 import com.gengqiquan.githubhelper.data.User;
 
@@ -34,6 +35,9 @@ public interface GithubService {
     @GET("user")
     Observable<User> user(@Query("access_token") String access_token);
 
-    @GET()
-    Observable<List<Repositorie>> getUserRepositories(@Url String url);
+    @GET("users/{user}/repos?per_page=20")
+    Observable<List<Repositorie>> getUserRepositories(@Path("user") String user, @Query("page") int page);
+
+    @GET("users/{user}/events/{privacy}?per_page=20")
+    Observable<List<Event>> getUserEvents(@Path("user") String user, @Path("privacy") String privacy, @Query("page") int page);
 }

@@ -1,3 +1,4 @@
+# event
 ## GET users/:owner/events
 List someone events
 ## GET /repos/:owner/:repo/events

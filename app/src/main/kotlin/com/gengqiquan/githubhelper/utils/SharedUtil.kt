@@ -64,7 +64,7 @@ object SharedUtil {
         editor.commit()
     }
 
-    fun getString(context: Context, key: String): String {
+    fun getString(context: Context, key: String): String? {
         val sharedPreferences = getDefaultSharedPreferences(context)
         return sharedPreferences.getString(key, null)
     }

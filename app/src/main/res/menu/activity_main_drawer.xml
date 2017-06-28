@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_menu_gallery"
             android:title="Notification" />
         <item
-            android:id="@+id/news"
+            android:id="@+id/events"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="News" />
+            android:title="Events" />
         <item
             android:id="@+id/issues"
             android:icon="@drawable/ic_menu_manage"

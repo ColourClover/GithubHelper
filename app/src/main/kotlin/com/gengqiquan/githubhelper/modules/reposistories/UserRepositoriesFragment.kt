@@ -1,45 +1,37 @@
 package com.gengqiquan.githubhelper.modules.reposistories
 
 import android.os.Bundle
-import android.support.design.widget.NavigationView
-import android.support.v4.view.GravityCompat
-import android.view.MenuItem
 import android.view.View
-import com.alibaba.android.arouter.launcher.ARouter
-import com.che300.kotlin.extand.load
 import com.gengqiquan.adapter.adapter.RBAdapter
 import com.gengqiquan.adapter.interfaces.Holder
 import com.gengqiquan.githubhelper.R
-import com.gengqiquan.githubhelper.base.MVPActivity
+import com.gengqiquan.githubhelper.base.MVPFragment
 import com.gengqiquan.githubhelper.data.Repositorie
 import com.gengqiquan.githubhelper.expansions.applySchedulers
-import com.gengqiquan.githubhelper.provides.APIs
 import com.gengqiquan.githubhelper.provides.GithubService
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
+import kotlinx.android.synthetic.main.activity_user_repositories.*
 
 
-class UserRepositoriesActivity : MVPActivity() {
-    lateinit var reposUrl: String
+class UserRepositoriesFragment : MVPFragment() {
 
-    override fun getLayoutID(): Int = R.layout.activity_user_repositories
+    var page = 1
+    lateinit var userID: String
+
+    override fun getLayoutID() = R.layout.activity_user_repositories
 
     override fun inject() {
 
     }
 
-    override fun initViews(savedInstanceState: Bundle?) {
-        reposUrl = intent.getStringExtra("reposUrl")
-       val userName = intent.getStringExtra("userName")
-        mTitleBar.setTitle(userName)
+    override fun initView(view: View, savedInstanceState: Bundle?) {
+        userID = arguments.getString("userID")
 
-        refresh.adapter(RBAdapter<Repositorie>(mContext)
+        refresh_layout.adapter(RBAdapter<Repositorie>(mContext)
                 .bindViewData(this::bindViewAndData)
                 .layout(R.layout.item_user_repositorie_list))
                 .loadMore { load(false) }
                 .refresh { load(true) }
                 .doRefresh()
-
     }
 
     override fun initData() {
@@ -63,13 +55,21 @@ class UserRepositoriesActivity : MVPActivity() {
         holder.setText(R.id.fork, item.forksCount.toString())
     }
 
-    fun load(boolean: Boolean) {
-        retrofit.create(GithubService::class.java).getUserRepositories(reposUrl)
+    fun load(refresh: Boolean) {
+        if (refresh) page = 1
+        retrofit.create(GithubService::class.java).getUserRepositories(userID, page)
                 .applySchedulers()
                 .subscribe({
-                    refresh.refreshComplete(it)
+                    if (refresh) {
+                        refresh_layout.refreshComplete(it)
+                    } else {
+                        refresh_layout.loadMoreComplete(it)
+                    }
+                    page++
 
-                }) { e -> e.printStackTrace() }
+                }) { e -> e.printStackTrace()
+                    refresh_layout.loadFailure()
+                }
     }
 
 

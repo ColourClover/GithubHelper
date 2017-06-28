@@ -2,6 +2,9 @@ package com.gengqiquan.githubhelper.base
 
 import android.app.Activity
 import android.content.Context
+import com.gengqiquan.githubhelper.data.User
+import com.gengqiquan.githubhelper.expansions.fromJson
+import com.gengqiquan.githubhelper.expansions.getSharedString
 import dagger.Module
 import dagger.Provides
 
@@ -34,6 +37,11 @@ class ActivityModule {
     internal fun provideIBaseView(): IBaseView {
         return this.mBaseView
     }
-
+    @ActivityScope
+    @Provides
+    fun provideUser(): User {
+        val user = mContext.getSharedString("user")!!.fromJson<User>()
+        return user
+    }
 
 }

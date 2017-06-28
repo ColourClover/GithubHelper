@@ -1,5 +1,6 @@
-package com.sunshine.utillibrary.expand;
+package com.gengqiquan.githubhelper.expansions
 
+import com.che300.kotlin.extand.kson.fromJson
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonSyntaxException
@@ -14,35 +15,15 @@ import java.lang.Exception
  */
 
 
-fun <T> String.fromJson(typeToken: TypeToken<List<T>>): List<T>? {
-    var list: List<T>? = null
-    try {
-        list = Gson().fromJson<List<T>>(this, typeToken.type)
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
-
-    return list
-}
-
-fun <T> String.fromJson(clazz: Class<T>): T? {
-    var bean: T? = null
-    try {
-        bean = Gson().fromJson(this, clazz)
-    } catch (e: JsonSyntaxException) {
-        e.printStackTrace()
-    }
-    return bean
-
-}
+inline fun <reified T : Any> String.fromJson(): T = Gson().fromJson<T>(this)
 
 /**
  * 描述：将对象转化为json.
 
  * @return
  */
-fun Any.toJson(): String? {
-    var json: String? = null
+fun Any.toJson(): String {
+    var json: String = ""
     try {
         json = Gson().toJson(this)
     } catch (e: Exception) {
