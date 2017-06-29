@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.text.Html
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -16,6 +17,12 @@ import com.gengqiquan.githubhelper.expansions.applySchedulers
 import com.gengqiquan.githubhelper.expansions.load
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.fragment_events.*
+import android.text.style.ClickableSpan
+import android.text.style.URLSpan
+import android.text.SpannableStringBuilder
+import com.alibaba.android.arouter.launcher.ARouter
+import com.gengqiquan.githubhelper.utils.TextClick
+import com.gengqiquan.githubhelper.utils.setLinkJump
 
 
 class EventsFragment : MVPFragment() {
@@ -40,11 +47,30 @@ class EventsFragment : MVPFragment() {
     }
 
     override fun initData() {
+
     }
+
 
     fun bindViewAndData(holder: Holder, item: Event) {
         holder.setText(R.id.created_time, item.createdAt)
-        holder.getView<TextView>(R.id.desc).text = Html.fromHtml(persent.getDesc(item))
+        val desc = holder.getView<TextView>(R.id.desc)
+        setLinkJump(desc, persent.getDesc(item), resources.getColor(R.color.blue009eff), object : TextClick {
+            override fun click(uri: String) {
+                var url = uri
+                val bundle = Bundle()
+                if (url.contains("?")) {
+                    var data = url.split("?")
+                    if (data.size > 1) {
+                        val params = data[1].split("&".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray()
+                        params.map { param -> param.split("=".toRegex()).dropLastWhile({ it.isEmpty() }).toTypedArray() }
+                                .forEach { bundle.putString(it[0], it[1]) }
+
+                    }
+                    url = data[0]
+                }
+                ARouter.getInstance().build(url).with(bundle).navigation()
+            }
+        })
         holder.getView<TextView>(R.id.tags).text = Html.fromHtml(persent.getTags(item))
         holder.getView<ImageView>(R.id.user_photo).load(item.actor.avatarUrl)
     }

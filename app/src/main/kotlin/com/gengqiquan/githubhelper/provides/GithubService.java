@@ -35,9 +35,15 @@ public interface GithubService {
     @GET("user")
     Observable<User> user(@Query("access_token") String access_token);
 
-    @GET("users/{user}/repos?per_page=20")
-    Observable<List<Repositorie>> getUserRepositories(@Path("user") String user, @Query("page") int page);
+    @GET("users/{user}")
+    Observable<User> getUser(@Path("user") String user);
+
+    @GET("users/{user}/{type}?per_page=20")
+    Observable<List<Repositorie>> getRepositoriesList(@Path("user") String user, @Path("type") String type, @Query("page") int page);
 
     @GET("users/{user}/events/{privacy}?per_page=20")
     Observable<List<Event>> getUserEvents(@Path("user") String user, @Path("privacy") String privacy, @Query("page") int page);
+
+    @GET("/repos/{owner}/{repo}")
+    Observable<List<Event>> getRepositories(@Path("owner") String owner, @Path("repo") String repo);
 }

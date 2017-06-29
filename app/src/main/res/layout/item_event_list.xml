@@ -50,10 +50,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/desc"
             android:layout_marginLeft="50dp"
-            android:paddingBottom="0dp"
-            android:lineSpacingExtra="3dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="5dp"
+            android:lineSpacingExtra="3dp"
+            android:paddingBottom="0dp"
             android:textColor="@color/black666666"
             android:textSize="11sp" />
 

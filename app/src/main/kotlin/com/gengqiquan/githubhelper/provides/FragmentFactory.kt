@@ -2,7 +2,7 @@ package com.gengqiquan.githubhelper.provides
 
 import com.gengqiquan.githubhelper.base.BaseFragment
 import com.gengqiquan.githubhelper.modules.events.EventsFragment
-import com.gengqiquan.githubhelper.modules.reposistories.UserRepositoriesFragment
+import com.gengqiquan.githubhelper.modules.reposistories.RepositoriesListFragment
 
 import java.util.HashMap
 
@@ -18,7 +18,8 @@ object FragmentFactory {
         }
         when (tag) {
             "Events" -> fragment = EventsFragment()
-            "Repositories" -> fragment = UserRepositoriesFragment()
+            "Repositories" -> fragment = RepositoriesListFragment()
+            "Starred" -> fragment = RepositoriesListFragment()
             else -> fragment = EventsFragment()
         }
         mFragmentCache.put(tag, fragment)

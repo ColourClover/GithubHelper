@@ -21,7 +21,9 @@
             android:icon="@drawable/ic_menu_manage"
             android:title="Issues" />
     </group>
-    <item android:title="Repositories">
+    <item
+        android:id="@+id/repositories"
+        android:title="Repositories">
         <menu>
             <item
                 android:id="@+id/owned"

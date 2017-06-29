@@ -9,22 +9,24 @@ import com.gengqiquan.githubhelper.base.MVPFragment
 import com.gengqiquan.githubhelper.data.Repositorie
 import com.gengqiquan.githubhelper.expansions.applySchedulers
 import com.gengqiquan.githubhelper.provides.GithubService
-import kotlinx.android.synthetic.main.activity_user_repositories.*
+import kotlinx.android.synthetic.main.fragment_repositories_list.*
 
 
-class UserRepositoriesFragment : MVPFragment() {
+class RepositoriesListFragment : MVPFragment() {
 
     var page = 1
     lateinit var userID: String
+    lateinit var type: String
 
-    override fun getLayoutID() = R.layout.activity_user_repositories
+    override fun getLayoutID() = R.layout.fragment_repositories_list
 
     override fun inject() {
 
     }
 
     override fun initView(view: View, savedInstanceState: Bundle?) {
-        userID = arguments.getString("userID")
+        userID = arguments.getString("userLogin")
+        type = arguments.getString("type")
 
         refresh_layout.adapter(RBAdapter<Repositorie>(mContext)
                 .bindViewData(this::bindViewAndData)
@@ -57,7 +59,7 @@ class UserRepositoriesFragment : MVPFragment() {
 
     fun load(refresh: Boolean) {
         if (refresh) page = 1
-        retrofit.create(GithubService::class.java).getUserRepositories(userID, page)
+        retrofit.create(GithubService::class.java).getRepositoriesList(userID, type, page)
                 .applySchedulers()
                 .subscribe({
                     if (refresh) {
@@ -67,7 +69,8 @@ class UserRepositoriesFragment : MVPFragment() {
                     }
                     page++
 
-                }) { e -> e.printStackTrace()
+                }) { e ->
+                    e.printStackTrace()
                     refresh_layout.loadFailure()
                 }
     }

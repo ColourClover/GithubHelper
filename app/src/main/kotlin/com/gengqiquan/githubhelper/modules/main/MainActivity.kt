@@ -7,16 +7,14 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import bindView
 import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.base.BaseFragment
-import com.gengqiquan.githubhelper.provides.FragmentFactory
 import com.gengqiquan.githubhelper.base.MVPActivity
-import com.gengqiquan.githubhelper.expansions.*
+import com.gengqiquan.githubhelper.expansions.load
+import com.gengqiquan.githubhelper.expansions.pair
 import com.gengqiquan.githubhelper.modules.user.UserInfoActivity
-import io.reactivex.rxkotlin.toObservable
+import com.gengqiquan.githubhelper.provides.FragmentFactory
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.nav_header_main.*
 import org.jetbrains.anko.find
 import org.jetbrains.anko.sdk25.coroutines.onClick
 import org.jetbrains.anko.startActivity
@@ -67,7 +65,19 @@ class MainActivity : MVPActivity(), NavigationView.OnNavigationItemSelectedListe
         // Handle navigation view item clicks here.
 //        ARouter.getInstance().build("/tab/" + item.title.toString())
 //                .navigation()
-        changeFragment(item.title.toString())
+        when (item.itemId) {
+            R.id.owned -> {
+                changeFragment("Repositories", "userLogin" to user.login, "type" to "repos")
+            }
+            R.id.starred -> {
+                changeFragment("Starred", "userLogin" to user.login, "type" to "starred")
+            }
+            else -> {
+            }
+        }
+
+
+
         return true
     }
 
