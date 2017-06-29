@@ -33,6 +33,7 @@ class UserPersenter {
                     mView.setUserInfo(it)
                 }) { e ->
                     e.printStackTrace()
+                    mView.error("get user info failure ,please pull to refresh")
                 }
     }
 

@@ -59,7 +59,7 @@ class App : Application() {
         ARouter.init(this) // 尽可能早，推荐在Application中初始化
         LoginUtil.setLoginActivity(LoginActivity::class.java)
         LoginUtil.USER_TOKEN = APIs.TEST_TOKEN
-        CustomCrashHandler.getInstance().setCustomCrashHanler(this)
+        CustomCrashHandler.instance.setCustomCrashHanler(this)
     }
 
     private fun httpInit() {
