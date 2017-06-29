@@ -4,7 +4,7 @@ import android.support.annotation.CallSuper
 import com.gengqiquan.githubhelper.expansions.error
 import com.gengqiquan.githubhelper.expansions.success
 import com.gengqiquan.githubhelper.expansions.toast
-import com.trello.rxlifecycle.LifecycleTransformer
+import com.trello.rxlifecycle2.LifecycleTransformer
 
 /**
  * Created by gengqiquan on 2017/3/24.

@@ -2,17 +2,19 @@ package com.gengqiquan.githubhelper.base
 
 import android.os.Bundle
 import com.gengqiquan.githubhelper.App
-import com.gengqiquan.githubhelper.DaggerAppComponent
+import com.gengqiquan.githubhelper.data.User
 import retrofit2.Retrofit
 import javax.inject.Inject
 
 
 abstract class DaggerActivity : BaseActivity() {
+
+    @Inject lateinit var retrofit: Retrofit // TODO: 2017/6/23 for test ，UT should not allow touch net
     @Inject
-    lateinit var retrofit: Retrofit
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as App).component.inject(this)
+        App.component.inject(this)
         inject()
         super.onCreate(savedInstanceState)
     }

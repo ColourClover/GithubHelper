@@ -34,19 +34,19 @@ abstract class ThemActivity : AppCompatActivity() {
     /**
      * 内容布局.
      */
-    var mContentView: View? = null
+    lateinit  var mContentView: View
     /**
      * 外层容器布局，承载内容布局和请求失败布局
      */
-    var mRootView: RelativeLayout? = null
+    lateinit var mRootView: RelativeLayout
     /**
      * 最底层布局.
      */
-    var mBaseView: LinearLayout? = null
+    lateinit var mBaseView: LinearLayout
 
     // 请求失败布局
     var mBadNet: View? = null
-
+    abstract fun getLayoutID(): Int
     /*
     *绑定控件，设置监听事件
     *@author Administrator
@@ -77,16 +77,16 @@ abstract class ThemActivity : AppCompatActivity() {
         window.setSoftInputMode(SOFT_INPUT_ADJUST_RESIZE or SOFT_INPUT_STATE_HIDDEN)
         mBaseView = LinearLayout(this)
         mRootView = RelativeLayout(this)
-        mBaseView!!.orientation = LinearLayout.VERTICAL
+        mBaseView.orientation = LinearLayout.VERTICAL
         mContentView = layoutInflater.inflate(getLayoutID(), null)
         if (mContentView == null) {
             mContentView = RelativeLayout(this)
         }
 
         initToolbar()
-        mContentView!!.setBackgroundColor(resources.getColor(R.color.back))
-        mBaseView!!.addView(mRootView, LPMM)
-        mRootView!!.addView(mContentView, LPMM)
+        mContentView.setBackgroundColor(resources.getColor(R.color.back))
+        mBaseView.addView(mRootView, LPMM)
+        mRootView.addView(mContentView, LPMM)
         // 窗体动画显示
         //        overridePendingTransition(R.anim.slide_in_right, R.anim.anim_out_none);
         // 设置ContentView
@@ -144,10 +144,10 @@ abstract class ThemActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             //透明导航栏
-            mBaseView!!.addView(mHeader, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusHeight(mContext)))
+            mBaseView.addView(mHeader, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusHeight(mContext)))
             mHeader?.fitsSystemWindows = true
         }
-        mBaseView!!.addView(mTitleBar, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dip(48)))
+        mBaseView.addView(mTitleBar, ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, dip(48)))
         mTitleBar.setBackgroundDrawable(resources.getDrawable(R.color.colorPrimaryDark))
         mTitleBar.showLeft()
         mTitleBar.leftButton?.setOnClickListener({ onBackPressed() })
@@ -181,7 +181,7 @@ abstract class ThemActivity : AppCompatActivity() {
 //        return button
     // }
 
-    abstract fun getLayoutID(): Int
+
 
     override fun onDestroy() {
         if (mLoadView.isShowing)    //防止耗时操作后关闭加载框时界面已经被销毁
@@ -192,6 +192,6 @@ abstract class ThemActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        SoftInputUtil.hideSoftInput(mBaseView!!.windowToken, mContext)
+        SoftInputUtil.hideSoftInput(mBaseView.windowToken, mContext)
     }
 }

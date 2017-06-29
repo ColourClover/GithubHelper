@@ -2,22 +2,22 @@ package com.gengqiquan.githubhelper.base
 
 import android.app.Activity
 import android.content.Context
+import com.gengqiquan.githubhelper.data.User
+import com.gengqiquan.githubhelper.expansions.fromJson
+import com.gengqiquan.githubhelper.expansions.getSharedString
 import dagger.Module
 import dagger.Provides
 
-@Module
+@Module @ActivityScope
 class ActivityModule {
-    private val activity: Activity
-    internal var mBaseView: IBaseView
+    @ActivityScope  private val activity: Activity
+    @ActivityScope   var mBaseView: IBaseView
+    @ActivityScope  var mContext: Context
 
     constructor(activity: Activity) {
         this.activity = activity
         this.mBaseView = activity as IBaseView
-    }
-
-    constructor(activity: Activity, iBaseView: IBaseView) {
-        this.activity = activity
-        this.mBaseView = iBaseView
+        this.mContext = activity as Context
     }
 
     @ActivityScope
@@ -29,7 +29,7 @@ class ActivityModule {
     @ActivityScope
     @Provides
     internal fun provideContext(): Context {
-        return this.activity
+        return this.activity as Context
     }
 
     @ActivityScope
@@ -37,6 +37,11 @@ class ActivityModule {
     internal fun provideIBaseView(): IBaseView {
         return this.mBaseView
     }
-
+    @ActivityScope
+    @Provides
+    fun provideUser(): User {
+        val user = mContext.getSharedString("user")!!.fromJson<User>()
+        return user
+    }
 
 }
