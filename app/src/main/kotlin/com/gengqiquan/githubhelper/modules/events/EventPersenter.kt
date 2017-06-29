@@ -1,11 +1,38 @@
 package com.gengqiquan.githubhelper.modules.events
 
+import com.gengqiquan.githubhelper.AppComponent
+import com.gengqiquan.githubhelper.base.ActivityScope
+import com.gengqiquan.githubhelper.base.FragmentModule
+import com.gengqiquan.githubhelper.base.IBaseView
 import com.gengqiquan.githubhelper.data.Event
+import com.gengqiquan.githubhelper.expansions.BindViewLifeAndSchedulers
+import com.gengqiquan.githubhelper.provides.GithubService
+import dagger.Component
+import io.reactivex.Observable
+import retrofit2.Retrofit
+import javax.inject.Inject
 
 /**
  * Created by gengqiquan on 2017/6/27.
  */
 class EventPersenter {
+
+
+    val mView: IBaseView
+    val retrofit: Retrofit
+
+    @Inject
+    constructor(@ActivityScope mView: IBaseView, retrofit: Retrofit) {
+        this.mView = mView
+        this.retrofit = retrofit
+
+    }
+
+    fun getEvents(userID: String, page: Int): Observable<List<Event>> =
+            retrofit.create(GithubService::class.java).getUserEvents(userID, "public", page)
+                    .BindViewLifeAndSchedulers(mView)
+
+
     val groupUser = "/user/userInfo?userLogin="
     val groupRepos = "/repos/"
     val groupRepoBranch = "/repos/branch/"
@@ -55,4 +82,11 @@ class EventPersenter {
 
     fun String.href(router: String): String = "<a href=\"" + router + this + "\">" + this + "</a>"
     fun String.space(): String = this + " "
+
+
+    @ActivityScope
+    @Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(FragmentModule::class))
+    internal open interface EventComponent {
+        fun inject(fragment: EventsFragment)
+    }
 }

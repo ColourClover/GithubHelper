@@ -27,13 +27,13 @@ class UserInfoActivity : MVPActivity(), IUserView {
     @Autowired(name = "userLogin")
     lateinit var userLogin: String
 
-    override fun setUserInfo(user: User) {
-        user_photo.load(user.avatarUrl)
-        login.text = user.login
-        display_name.text = user.name
-        followers_number.text = user.followers.toString()
-        following_number.text = user.following.toString()
-
+    override fun inject() {
+        DaggerUserPersenter_UserComponent.builder()
+                .appComponent(App.component)
+                .userPersenterModule(UserPersenter.UserPersenterModule(this))
+                .activityModule(activityModule)
+                .build().inject(this)
+        ARouter.getInstance().inject(this)
     }
 
     override fun initViews(savedInstanceState: Bundle?) {
@@ -45,15 +45,6 @@ class UserInfoActivity : MVPActivity(), IUserView {
         gists.setOnClickListener { }
     }
 
-    override fun inject() {
-        DaggerUserPersenter_UserComponent.builder()
-                .appComponent(App.component)
-                .userPersenterModule(UserPersenter.UserPersenterModule(this))
-                .activityModule(activityModule)
-                .build().inject(this)
-        ARouter.getInstance().inject(this)
-    }
-
     override fun getLayoutID() = R.layout.activity_user_info
 
     override fun initData() {
@@ -61,4 +52,12 @@ class UserInfoActivity : MVPActivity(), IUserView {
 
     }
 
+    override fun setUserInfo(user: User) {
+        user_photo.load(user.avatarUrl)
+        login.text = user.login
+        display_name.text = user.name
+        followers_number.text = user.followers.toString()
+        following_number.text = user.following.toString()
+
+    }
 }

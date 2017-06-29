@@ -7,6 +7,7 @@ import com.gengqiquan.adapter.interfaces.Holder
 import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.base.MVPFragment
 import com.gengqiquan.githubhelper.data.Repositorie
+import com.gengqiquan.githubhelper.expansions.BindViewLifeAndSchedulers
 import com.gengqiquan.githubhelper.expansions.applySchedulers
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.fragment_repositories_list.*
@@ -17,7 +18,6 @@ class RepositoriesListFragment : MVPFragment() {
     var page = 1
     lateinit var userID: String
     lateinit var type: String
-
     override fun getLayoutID() = R.layout.fragment_repositories_list
 
     override fun inject() {
@@ -60,7 +60,7 @@ class RepositoriesListFragment : MVPFragment() {
     fun load(refresh: Boolean) {
         if (refresh) page = 1
         retrofit.create(GithubService::class.java).getRepositoriesList(userID, type, page)
-                .applySchedulers()
+                .BindViewLifeAndSchedulers(this)
                 .subscribe({
                     if (refresh) {
                         refresh_layout.refreshComplete(it)
