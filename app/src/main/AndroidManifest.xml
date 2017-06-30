@@ -39,6 +39,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".modules.user.UserInfoActivity" />
         <activity android:name=".modules.reposistories.RepositoriesActivity" />
+        <activity android:name=".modules.events.EventListActivity" />
         <activity
             android:name=".modules.login.LoginActivity"
             android:label="@string/title_activity_login" />

@@ -6,9 +6,8 @@ import com.gengqiquan.adapter.adapter.RBAdapter
 import com.gengqiquan.adapter.interfaces.Holder
 import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.base.MVPFragment
-import com.gengqiquan.githubhelper.data.Repositorie
+import com.gengqiquan.githubhelper.data.Repo
 import com.gengqiquan.githubhelper.expansions.BindViewLifeAndSchedulers
-import com.gengqiquan.githubhelper.expansions.applySchedulers
 import com.gengqiquan.githubhelper.provides.GithubService
 import kotlinx.android.synthetic.main.fragment_repositories_list.*
 
@@ -28,7 +27,7 @@ class RepositoriesListFragment : MVPFragment() {
         userID = arguments.getString("userLogin")
         type = arguments.getString("type")
 
-        refresh_layout.adapter(RBAdapter<Repositorie>(mContext)
+        refresh_layout.adapter(RBAdapter<Repo>(mContext)
                 .bindViewData(this::bindViewAndData)
                 .layout(R.layout.item_user_repositorie_list))
                 .loadMore { load(false) }
@@ -39,7 +38,7 @@ class RepositoriesListFragment : MVPFragment() {
     override fun initData() {
     }
 
-    fun bindViewAndData(holder: Holder, item: Repositorie) {
+    fun bindViewAndData(holder: Holder, item: Repo) {
         holder.setText(R.id.name, item.name)
         holder.setText(R.id.desc, item.description)
         holder.setText(R.id.language, item.language)

@@ -109,6 +109,14 @@ dependencies {
     implementation 'com.github.GrenderG:Toasty:1.2.5'
     implementation 'com.gengqiquan:refreshlayout:1.1.0'
     implementation 'de.hdodenhof:circleimageview:2.1.0'
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+    implementation('jp.wasabeef:recyclerview-animators:2.2.7') {
+        exclude module: 'recyclerview-v7'
+        exclude module: 'support-core-ui'
+        exclude module: 'support-compat'
+    }
+    implementation 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+
     // kapt "com.android.databinding:compiler:$databinding_version"
     //  implementation "org.jetbrains.anko:anko:$anko_version"
     //AOP

@@ -7,10 +7,14 @@ import android.text.Html
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.alibaba.android.arouter.facade.annotation.Autowired
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.alibaba.android.arouter.launcher.ARouter
 import com.gengqiquan.adapter.adapter.RBAdapter
 import com.gengqiquan.adapter.interfaces.Holder
 import com.gengqiquan.githubhelper.App
 import com.gengqiquan.githubhelper.R
+import com.gengqiquan.githubhelper.base.MVPActivity
 import com.gengqiquan.githubhelper.base.MVPFragment
 import com.gengqiquan.githubhelper.data.Event
 import com.gengqiquan.githubhelper.expansions.applySchedulers
@@ -20,32 +24,34 @@ import com.gengqiquan.githubhelper.utils.setLinkJump
 import kotlinx.android.synthetic.main.fragment_events.*
 import javax.inject.Inject
 
+@Route(path = "/repos/repo/events")
+class EventListActivity : MVPActivity() {
 
-class EventsFragment : MVPFragment() {
+    @Autowired(name = "url")
+    lateinit var url: String
     @Inject
     lateinit var persent: EventPersenter
-
-    override fun getLayoutID() = R.layout.fragment_events
     var page = 1
-    override fun initView(view: View, savedInstanceState: Bundle?) {
-        userID = arguments.getString("userID")
+    override fun getLayoutID() = R.layout.fragment_events
+
+    override fun inject() {
+        ARouter.getInstance().inject(this)
+        DaggerEventPersenter_EventListComponent.builder()
+                .appComponent(App.component)
+                .activityModule(activityModule)
+                .build()
+                .inject(this)
+
+    }
+
+    override fun initViews(savedInstanceState: Bundle?) {
+        setTitle("Events")
         refresh_layout.adapter(RBAdapter<Event>(mContext)
                 .bindViewData(this::bindViewAndData)
                 .layout(R.layout.item_event_list))
                 .loadMore { load(false) }
                 .refresh { load(true) }
                 .doRefresh()
-    }
-
-
-    lateinit var userID: String
-
-    override fun inject() {
-        DaggerEventPersenter_EventComponent.builder()
-                .appComponent(App.component)
-                .fragmentModule(fragmentModule)
-                .build()
-                .inject(this)
     }
 
     override fun initData() {
@@ -63,7 +69,7 @@ class EventsFragment : MVPFragment() {
 
     fun load(refresh: Boolean) {
         if (refresh) page = 1
-        persent.getUserEvents(userID, page)
+        persent.getRepoEvents(url, page)
                 .subscribe({
                     if (refresh) {
                         refresh_layout.refreshComplete(it)

@@ -1,6 +1,7 @@
 
 package com.gengqiquan.githubhelper.utils;
 
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.support.annotation.ColorInt;
 import android.text.ParcelableSpan;
@@ -15,6 +16,8 @@ public class ColorSpan extends CharacterStyle
      */
 
     private final int mColor;
+    private Bitmap bmpOne;
+    private Bitmap bmpTwo;
 
     public ColorSpan(@ColorInt int color) {
         mColor = color;

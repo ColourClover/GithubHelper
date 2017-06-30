@@ -1,11 +1,13 @@
 package com.gengqiquan.githubhelper.modules.events
 
 import com.gengqiquan.githubhelper.AppComponent
+import com.gengqiquan.githubhelper.base.ActivityModule
 import com.gengqiquan.githubhelper.base.ActivityScope
 import com.gengqiquan.githubhelper.base.FragmentModule
 import com.gengqiquan.githubhelper.base.IBaseView
 import com.gengqiquan.githubhelper.data.Event
 import com.gengqiquan.githubhelper.expansions.BindViewLifeAndSchedulers
+import com.gengqiquan.githubhelper.expansions.applySchedulersAndLife
 import com.gengqiquan.githubhelper.provides.GithubService
 import dagger.Component
 import io.reactivex.Observable
@@ -28,13 +30,17 @@ class EventPersenter {
 
     }
 
-    fun getEvents(userID: String, page: Int): Observable<List<Event>> =
+    fun getUserEvents(userID: String, page: Int): Observable<List<Event>> =
             retrofit.create(GithubService::class.java).getUserEvents(userID, "public", page)
-                    .BindViewLifeAndSchedulers(mView)
+                    .applySchedulersAndLife(mView)
+
+    fun getRepoEvents(url: String, page: Int): Observable<List<Event>> =
+            retrofit.create(GithubService::class.java).getRepoEvents(url, page)
+                    .applySchedulersAndLife(mView)
 
 
     val groupUser = "/user/userInfo?userLogin="
-    val groupRepos = "/repos/"
+    val groupRepos = "/repos/repo?repoPath="
     val groupRepoBranch = "/repos/branch/"
     fun getDesc(event: Event): String {
         var desc = ""
@@ -81,6 +87,7 @@ class EventPersenter {
     }
 
     fun String.href(router: String): String = "<a href=\"" + router + this + "\">" + this + "</a>"
+    //fun String.repo(owner: String): String = "<a href=\"" + groupRepos + this + "&owner=" + owner + "\">" + this + "</a>"
     fun String.space(): String = this + " "
 
 
@@ -88,5 +95,11 @@ class EventPersenter {
     @Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(FragmentModule::class))
     internal open interface EventComponent {
         fun inject(fragment: EventsFragment)
+    }
+
+    @ActivityScope
+    @Component(dependencies = arrayOf(AppComponent::class), modules = arrayOf(ActivityModule::class))
+    internal open interface EventListComponent {
+        fun inject(activity: EventListActivity)
     }
 }

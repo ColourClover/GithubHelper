@@ -4,10 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Repo {
-
-	@SerializedName("parent")
-	private Parent parent;
+public class Parent{
 
 	@SerializedName("stargazers_count")
 	private int stargazersCount;
@@ -24,9 +21,6 @@ public class Repo {
 	@SerializedName("branches_url")
 	private String branchesUrl;
 
-	@SerializedName("source")
-	private Source source;
-
 	@SerializedName("issue_comment_url")
 	private String issueCommentUrl;
 
@@ -41,9 +35,6 @@ public class Repo {
 
 	@SerializedName("svn_url")
 	private String svnUrl;
-
-	@SerializedName("subscribers_count")
-	private int subscribersCount;
 
 	@SerializedName("id")
 	private int id;
@@ -62,9 +53,6 @@ public class Repo {
 
 	@SerializedName("statuses_url")
 	private String statusesUrl;
-
-	@SerializedName("network_count")
-	private int networkCount;
 
 	@SerializedName("ssh_url")
 	private String sshUrl;
@@ -225,14 +213,6 @@ public class Repo {
 	@SerializedName("forks_count")
 	private int forksCount;
 
-	public void setParent(Parent parent){
-		this.parent = parent;
-	}
-
-	public Parent getParent(){
-		return parent;
-	}
-
 	public void setStargazersCount(int stargazersCount){
 		this.stargazersCount = stargazersCount;
 	}
@@ -273,14 +253,6 @@ public class Repo {
 		return branchesUrl;
 	}
 
-	public void setSource(Source source){
-		this.source = source;
-	}
-
-	public Source getSource(){
-		return source;
-	}
-
 	public void setIssueCommentUrl(String issueCommentUrl){
 		this.issueCommentUrl = issueCommentUrl;
 	}
@@ -319,14 +291,6 @@ public class Repo {
 
 	public String getSvnUrl(){
 		return svnUrl;
-	}
-
-	public void setSubscribersCount(int subscribersCount){
-		this.subscribersCount = subscribersCount;
-	}
-
-	public int getSubscribersCount(){
-		return subscribersCount;
 	}
 
 	public void setId(int id){
@@ -375,14 +339,6 @@ public class Repo {
 
 	public String getStatusesUrl(){
 		return statusesUrl;
-	}
-
-	public void setNetworkCount(int networkCount){
-		this.networkCount = networkCount;
-	}
-
-	public int getNetworkCount(){
-		return networkCount;
 	}
 
 	public void setSshUrl(String sshUrl){
@@ -812,27 +768,23 @@ public class Repo {
 	@Override
  	public String toString(){
 		return 
-			"Repositories{" + 
-			"parent = '" + parent + '\'' + 
-			",stargazers_count = '" + stargazersCount + '\'' + 
+			"Parent{" + 
+			"stargazers_count = '" + stargazersCount + '\'' + 
 			",pushed_at = '" + pushedAt + '\'' + 
 			",subscription_url = '" + subscriptionUrl + '\'' + 
 			",language = '" + language + '\'' + 
 			",branches_url = '" + branchesUrl + '\'' + 
-			",source = '" + source + '\'' + 
 			",issue_comment_url = '" + issueCommentUrl + '\'' + 
 			",labels_url = '" + labelsUrl + '\'' + 
 			",subscribers_url = '" + subscribersUrl + '\'' + 
 			",releases_url = '" + releasesUrl + '\'' + 
 			",svn_url = '" + svnUrl + '\'' + 
-			",subscribers_count = '" + subscribersCount + '\'' + 
 			",id = '" + id + '\'' + 
 			",forks = '" + forks + '\'' + 
 			",archive_url = '" + archiveUrl + '\'' + 
 			",git_refs_url = '" + gitRefsUrl + '\'' + 
 			",forks_url = '" + forksUrl + '\'' + 
 			",statuses_url = '" + statusesUrl + '\'' + 
-			",network_count = '" + networkCount + '\'' + 
 			",ssh_url = '" + sshUrl + '\'' + 
 			",full_name = '" + fullName + '\'' + 
 			",size = '" + size + '\'' + 

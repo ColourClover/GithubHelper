@@ -4,7 +4,7 @@ import javax.annotation.Generated;
 import com.google.gson.annotations.SerializedName;
 
 @Generated("com.robohorse.robopojogenerator")
-public class Repositorie{
+public class Source{
 
 	@SerializedName("stargazers_count")
 	private int stargazersCount;
@@ -768,7 +768,7 @@ public class Repositorie{
 	@Override
  	public String toString(){
 		return 
-			"Repositorie{" + 
+			"Source{" + 
 			"stargazers_count = '" + stargazersCount + '\'' + 
 			",pushed_at = '" + pushedAt + '\'' + 
 			",subscription_url = '" + subscriptionUrl + '\'' + 
