@@ -37,8 +37,8 @@ class UserInfoActivity : MVPActivity(), IUserView {
     }
 
     override fun initViews(savedInstanceState: Bundle?) {
-        followers.setOnClickListener { }
-        following.setOnClickListener { }
+        followers.setOnClickListener { ARouter.getInstance().build("/user/userlist").withString("type", "followers").withString("url", "users/$userLogin/followers").navigation() }
+        following.setOnClickListener { ARouter.getInstance().build("/user/userlist").withString("type", "following").withString("url", "users/$userLogin/following").navigation() }
         events.setOnClickListener { }
         org.setOnClickListener { }
         repo.setOnClickListener { }

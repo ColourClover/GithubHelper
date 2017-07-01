@@ -85,9 +85,9 @@ class RepositoriesActivity : MVPActivity(), IRepositoriesView {
         star_number.text = repo.stargazersCount.toString()
         watcher_number.text = repo.watchersCount.toString()
         fork_number.text = repo.forksCount.toString()
-        star.onClick { ARouter.getInstance().build("/repos/repo/stars").withString("url", "repos/${repo.fullName}/stargazers").navigation() }
-        watcher.onClick { ARouter.getInstance().build("/repos/repo/watchers").withString("url", "repos/${repo.fullName}/subscribers").navigation() }
-        fork.onClick { ARouter.getInstance().build("/repos/repo/forks").withString("url", "repos/${repo.fullName}/forks").navigation() }
+        star.onClick { ARouter.getInstance().build("/user/userlist").withString("type", "Stars").withString("url", "repos/${repo.fullName}/stargazers").navigation() }
+        watcher.onClick { ARouter.getInstance().build("/user/userlist").withString("type", "Watchers").withString("url", "repos/${repo.fullName}/subscribers").navigation() }
+        fork.onClick { ARouter.getInstance().build("/repos/fork").withString("type", "Stars").withString("url", "repos/${repo.fullName}/forks").navigation() }
 
     }
 

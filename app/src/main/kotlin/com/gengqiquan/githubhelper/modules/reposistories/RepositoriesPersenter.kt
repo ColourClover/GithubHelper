@@ -5,7 +5,6 @@ import com.gengqiquan.githubhelper.R
 import com.gengqiquan.githubhelper.data.MenuItem
 import com.gengqiquan.githubhelper.data.Repo
 import com.gengqiquan.githubhelper.expansions.BindViewLifeAndSchedulers
-import com.gengqiquan.githubhelper.expansions.pair
 import com.gengqiquan.githubhelper.expansions.pairs
 import com.gengqiquan.githubhelper.provides.GithubService
 import retrofit2.Retrofit

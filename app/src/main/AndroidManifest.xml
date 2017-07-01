@@ -38,6 +38,7 @@
             android:name=".modules.MainActivity"
             android:launchMode="singleTask" />
         <activity android:name=".modules.user.UserInfoActivity" />
+        <activity android:name=".modules.user.UserListActivity" />
         <activity android:name=".modules.reposistories.RepositoriesActivity" />
         <activity android:name=".modules.events.EventListActivity" />
         <activity

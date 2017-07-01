@@ -44,6 +44,10 @@ public interface GithubService {
     Observable<User> getUser(@Path("user") String user);
 
     @Headers("Cache-Control: max-age=640000")
+    @GET("{url}?per_page=20")
+    Observable<List<User>> getUserList(@Path(value = "url", encoded = true) String url, @Query("page") int page);
+
+    @Headers("Cache-Control: max-age=640000")
     @GET("users/{user}/{type}?per_page=20")
     Observable<List<Repo>> getRepositoriesList(@Path("user") String user, @Path("type") String type, @Query("page") int page);
 
